@@ -1,6 +1,7 @@
 #include <iostream>
-#include "hello.h"
+#include "assimp/Importer.hpp"
 
 int main() {
-    hello();
+    Assimp::Importer importer;
+    printf("hello Assimp Conan package!\n");
 }

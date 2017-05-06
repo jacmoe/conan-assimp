@@ -28,12 +28,14 @@ conan_basic_setup()''')
     def build(self):
         cmake = CMake(self)
         shared = "-DBUILD_SHARED_LIBS=ON" if self.options.shared else ""
-        self.run('cmake assimp-3.3.1 %s %s' % (cmake.command_line, shared))
+        assoptions = "-DASSIMP_BUILD_TESTS=OFF -DASSIMP_BUILD_SAMPLES=OFF"
+        fixes = "-DCMAKE_CXX_FLAGS=-fPIC -DCMAKE_C_FLAGS=-fPIC"
+        self.run('cmake assimp-3.3.1 %s %s %s %s' % (cmake.command_line, shared, assoptions, fixes))
         self.run("cmake --build . %s" % cmake.build_config)
 
     def package(self):
-        self.copy("*.h", dst="include", src="assimp-3.3.1")
-        self.copy("*hello.lib", dst="lib", keep_path=False)
+        self.copy("*.h", dst="include", src="assimp-3.3.1/include")
+        self.copy("*assimp.lib", dst="lib", keep_path=False)
         self.copy("*.dll", dst="bin", keep_path=False)
         self.copy("*.so", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
