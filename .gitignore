@@ -1,2 +1,4 @@
 *.pyc
 test_package/build
+upload.sh
+
