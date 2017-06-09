@@ -35,7 +35,7 @@ matrix:
 
 before_install:
  - sudo apt-get -qq update
- - sudo apt-get install -qq freeglut3-dev libxmu-dev libxi-dev
+ - sudo apt-get install -qq libzzip-dev freeglut3-dev libxmu-dev libxi-dev
  - chmod +x ./.travis/install.sh
  - chmod +x ./.travis/run.sh
 
