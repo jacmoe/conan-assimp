@@ -23,6 +23,8 @@ matrix:
         apt:
           packages:
             - g++-5
+            - cmake
+            - cmake-data
           sources: 
             - ubuntu-toolchain-r-test
     - env: CXX=g++-4.9 CC=gcc-4.9
@@ -30,6 +32,8 @@ matrix:
         apt:
           packages:
             - g++-4.9
+            - cmake
+            - cmake-data
           sources: 
             - ubuntu-toolchain-r-test
 
