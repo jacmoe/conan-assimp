@@ -35,6 +35,8 @@ conan_basic_setup()''')
 
     def package(self):
         self.copy("*.h", dst="include", src="assimp-3.3.1/include")
+        self.copy("*.hpp", dst="include", src="assimp-3.3.1/include")
+        self.copy("*.inl", dst="include", src="assimp-3.3.1/include")
         self.copy("*assimp.lib", dst="lib", keep_path=False)
         self.copy("*.dll", dst="bin", keep_path=False)
         self.copy("*.so", dst="lib", keep_path=False)
