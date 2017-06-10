@@ -35,7 +35,7 @@ matrix:
 
 before_install:
  - sudo apt-get -qq update
- - sudo apt-get install -y pkg-config cmake-data libzzip-dev freeglut3-dev libxmu-dev libxi-dev zlib1g-dev
+ - sudo apt-get install -y pkg-config cmake-data libzzip-dev freeglut3-dev libxmu-dev libxi-dev libz-dev
  - chmod +x ./.travis/install.sh
  - chmod +x ./.travis/run.sh
 
