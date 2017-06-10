@@ -24,6 +24,8 @@ matrix:
           packages:
             - g++-5
             - g++-4.9
+            - build-essential
+            - pkg-config
             - libzzip-dev
             - freeglut3-dev
             - libxmu-dev
@@ -36,6 +38,8 @@ matrix:
         apt:
           packages:
             - g++-4.9
+            - build-essential
+            - pkg-config
             - libzzip-dev
             - freeglut3-dev
             - libxmu-dev
