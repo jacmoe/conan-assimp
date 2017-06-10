@@ -1,7 +1,7 @@
 os: linux
 services:
    - docker
-sudo: required
+sudo: false
 language: python
 env:
   global:
@@ -23,6 +23,12 @@ matrix:
         apt:
           packages:
             - g++-5
+            - g++-4.9
+            - libzzip-dev
+            - freeglut3-dev
+            - libxmu-dev
+            - libxi-dev
+            - libz-dev
           sources: 
             - ubuntu-toolchain-r-test
     - env: CXX=g++-4.9 CC=gcc-4.9
@@ -30,12 +36,15 @@ matrix:
         apt:
           packages:
             - g++-4.9
+            - libzzip-dev
+            - freeglut3-dev
+            - libxmu-dev
+            - libxi-dev
+            - libz-dev
           sources: 
             - ubuntu-toolchain-r-test
 
 before_install:
- - sudo apt-get -qq update
- - sudo apt-get install -y pkg-config cmake-data libzzip-dev freeglut3-dev libxmu-dev libxi-dev libz-dev
  - chmod +x ./.travis/install.sh
  - chmod +x ./.travis/run.sh
 
