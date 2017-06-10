@@ -19,6 +19,7 @@ env:
 matrix:
   include:
     - env: CXX=g++-5 CC=gcc-5
+      language: generic
       addons:
         apt:
           packages:
@@ -34,6 +35,7 @@ matrix:
           sources: 
             - ubuntu-toolchain-r-test
     - env: CXX=g++-4.9 CC=gcc-4.9
+      language: generic
       addons:
         apt:
           packages:
