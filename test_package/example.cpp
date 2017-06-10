@@ -3,5 +3,5 @@
 
 int main() {
     Assimp::Importer importer;
-    printf("hello Assimp Conan package!\n");
+    std::cout << "Hello Assimp!" << std::endl;
 }
