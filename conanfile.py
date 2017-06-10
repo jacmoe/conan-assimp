@@ -44,5 +44,6 @@ conan_basic_setup()''')
 
     def package_info(self):
         self.cpp_info.libs = ["assimp"]
+        is_apple = (self.settings.os == 'Macos' or self.settings.os == 'iOS')
         if self.settings.build_type == "Debug" and not is_apple:
             self.cpp_info.libs = [lib+'_d' for lib in self.cpp_info.libs]
