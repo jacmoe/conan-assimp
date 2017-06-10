@@ -1,7 +1,7 @@
 os: linux
 services:
    - docker
-sudo: false
+sudo: required
 language: python
 env:
   global:
