@@ -9,6 +9,7 @@ env:
     - CONAN_REFERENCE="Assimp/1.3.3"
     - CONAN_USERNAME="jacmoe"
     - CONAN_CHANNEL="testing"
+    - CONAN_TOTAL_PAGES=1
 
 matrix:
    include:
