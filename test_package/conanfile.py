@@ -1,14 +1,9 @@
 from conans import ConanFile, CMake
 import os
 
-
-channel = os.getenv("CONAN_CHANNEL", "testing")
-username = os.getenv("CONAN_USERNAME", "jacmoe")
-
-
 class AssimpTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    requires = "Assimp/3.3.1@%s/%s" % (username, channel)
+    requires = "Assimp/3.3.1@jacmoe/testing", "zlib/1.2.8@lasote/stable"
     generators = "cmake"
 
     def build(self):
