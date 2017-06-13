@@ -8,6 +8,7 @@ class AssimpConan(ConanFile):
     version = "3.3.1"
     license = "MIT"
     url = "https://github.com/jacmoe/conan-assimp"
+    requires = "zlib/1.2.8@lasote/stable"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=False"
