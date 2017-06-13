@@ -6,11 +6,8 @@ set(CMAKE_DEBUG_POSTFIX "d")
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-find_package(ZLIB REQUIRED)
-INCLUDE_DIRECTORIES(${ZLIB_INCLUDE_DIR})
-
 add_executable(example example.cpp)
-target_link_libraries(example ${CONAN_LIBS} ${ZLIB_LIBRARIES})
+target_link_libraries(example ${CONAN_LIBS})
 
 # CTest is a testing tool that can be used to test your project.
 # enable_testing()
