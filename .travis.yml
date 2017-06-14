@@ -6,7 +6,7 @@ language: python
 env:
   global:
     - CONAN_UPLOAD="https://api.bintray.com/conan/jacmoe/Conan"
-    - CONAN_REFERENCE="Assimp/1.3.3"
+    - CONAN_REFERENCE="Assimp/3.3.1"
     - CONAN_USERNAME="jacmoe"
     - CONAN_CHANNEL="stable"
 
