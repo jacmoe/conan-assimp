@@ -52,8 +52,6 @@ conan_basic_setup()''')
         
         if self.settings.os == "Windows":
             self.cpp_info.cppflags.append("/EHsc")
-            self.cpp_info.exelinkflags.append('-NODEFAULTLIB:LIBCMTD')
-            self.cpp_info.exelinkflags.append('-NODEFAULTLIB:LIBCMT')
         else:
             self.cpp_info.cppflags.append("-std=c++11")
 
