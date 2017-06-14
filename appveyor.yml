@@ -5,7 +5,7 @@ environment:
     PYTHON_VERSION: "2.7.8"
     PYTHON_ARCH: "32"
 
-    CONAN_UPLOAD: https://api.bintray.com/conan/jacmoe/Conan
+    #CONAN_UPLOAD: https://api.bintray.com/conan/jacmoe/Conan
     CONAN_REFERENCE: "Assimp/3.3.1"
     CONAN_USERNAME: "jacmoe"
     CONAN_CHANNEL: "stable"
