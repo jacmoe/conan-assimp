@@ -17,5 +17,4 @@ class AssimpTestConan(ConanFile):
         self.copy("*.dylib*", dst="bin", src="lib")
 
     def test(self):
-        os.chdir("bin")
-        self.run(".%sexample" % os.sep)
+       self.run(os.sep.join(["cd bin && .", "example"]))
