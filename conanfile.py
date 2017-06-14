@@ -50,6 +50,12 @@ conan_basic_setup()''')
         if self.settings.build_type == "Debug" and not is_apple:
             self.cpp_info.libs = [lib+'d' for lib in self.cpp_info.libs]
         
-        self.cpp_info.cppflags.append("-std=c++11")
+        if self.settings.os == "Windows":
+            self.cpp_info.cppflags.append("/EHsc")
+            self.cpp_info.exelinkflags.append('-NODEFAULTLIB:LIBCMTD')
+            self.cpp_info.exelinkflags.append('-NODEFAULTLIB:LIBCMT')
+        else:
+            self.cpp_info.cppflags.append("-std=c++11")
+
         if self.settings.os == "Macos":
             self.cpp_info.cppflags.append("-stdlib=libc++")
