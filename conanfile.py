@@ -212,7 +212,7 @@ conan_basic_setup()''')
         else:
             self.cpp_info.libs = ["assimp", "IrrXML"]
         is_apple = (self.settings.os == 'Macos' or self.settings.os == 'iOS')
-        if self.settings.build_type == "Debug" and not is_apple:
+        if self.settings.build_type == "Debug" and not is_apple and not self.settings.compiler == "Visual Studio":
             self.cpp_info.libs = [lib+'d' for lib in self.cpp_info.libs]
         
         if self.settings.os == "Windows":
