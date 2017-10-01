@@ -1,6 +1,4 @@
 from conans import ConanFile, CMake, tools
-from conans.tools import download, unzip, replace_in_file
-import os
 
 
 class AssimpConan(ConanFile):
@@ -9,7 +7,7 @@ class AssimpConan(ConanFile):
     license = "MIT"
     url = "https://github.com/cinderblocks/conan-assimp"
     description = "Conan package for Assmip"
-    requires = "zlib/1.2.8@lasote/stable"
+    requires = "zlib/[>1.2.8]@conan/stable"
     settings = "os", "compiler", "build_type", "arch"
     options = {
         "shared": [True, False],
@@ -72,31 +70,27 @@ class AssimpConan(ConanFile):
     options.update(format_options)
     default_options += default_format_options
     generators = "cmake"
+    exports_sources = "cmakefix.patch"
 
     def source(self):
-        zip_name = "v%s.zip" % self.version
-        download("http://github.com/assimp/assimp/archive/%s" % zip_name, zip_name, verify=False)
-        unzip(zip_name)
-        os.unlink(zip_name)
-        self.run("cd assimp-%s" % self.version)
+        self.run("git clone https://github.com/assimp/assimp.git")
+        self.run("cd assimp && git checkout tags/v4.0.1")
+        self.run("cp cmakefix.patch assimp && cd assimp && git apply cmakefix.patch")
         # This small hack might be useful to guarantee proper /MT /MD linkage in MSVC
         # if the packaged project doesn't have variables to set it properly
-        tools.replace_in_file("assimp-%s/CMakeLists.txt" % self.version, "PROJECT( Assimp )", '''PROJECT( Assimp )
+        tools.replace_in_file("assimp/CMakeLists.txt", "PROJECT( Assimp )", '''PROJECT( Assimp )
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()''')
 
     def build(self):
         cmake = CMake(self)
-        if self.options.shared:
-            cmake.definitions["BUILD_SHARED_LIBS"] = True
-        if self.options.double_precision:
-            cmake.definitions["ASSIMP_DOUBLE_PRECISION"] = True
-        if self.options.no_export:
-            cmake.definitions["ASSIMP_NO_EXPORT"] = True
-        if self.options.additional_tools:
-            cmake.definitions["ASSIMP_BUILD_ASSIMP_TOOLS"] = True
+        cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
+        cmake.definitions["ASSIMP_DOUBLE_PRECISION"] = self.options.double_precision
+        cmake.definitions["ASSIMP_NO_EXPORT"] = self.options.no_export
+        cmake.definitions["ASSIMP_BUILD_ASSIMP_TOOLS"] = self.options.additional_tools
         cmake.definitions["ASSIMP_BUILD_TESTS"] = False
         cmake.definitions["ASSIMP_BUILD_SAMPLES"] = False
+        cmake.definitions["ASSIMP_INSTALL_PDB"] = False
         if self.options.fPIC and self.settings.compiler != "Visual Studio":
             cmake.definitions["CMAKE_CXX_FLAGS"] = "-fPIC"
             cmake.definitions["CMAKE_C_FLAGS"] = "-fPIC"
@@ -200,20 +194,25 @@ conan_basic_setup()''')
         if self.options.with_mmd:
             cmake.definitions["ASSIMP_BUILD_MMD_IMPORTER"] = True
 
-        cmake.configure(source_dir="assimp-%s" % self.version)
+        cmake.configure(source_dir="assimp")
         cmake.build(target="install")
 
     def package(self):
         self.copy("*.h", dst="include", src="include")
         self.copy("*.hpp", dst="include", src="include")
         self.copy("*.inl", dst="include", src="include")
-        self.copy("*assimp.lib", dst="lib", keep_path=False)
+        self.copy("*.lib", dst="lib", keep_path=False)
         self.copy("*.dll", dst="bin", keep_path=False)
         self.copy("*.so", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
+        if self.options.additional_tools:
+            self.copy("*.exe", dst="bin", keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["assimp"]
+        if self.settings.compiler == "Visual Studio":
+            self.cpp_info.libs = ["assimp-vc140-mt", "IrrXML"]
+        else:
+            self.cpp_info.libs = ["assimp", "IrrXML"]
         is_apple = (self.settings.os == 'Macos' or self.settings.os == 'iOS')
         if self.settings.build_type == "Debug" and not is_apple:
             self.cpp_info.libs = [lib+'d' for lib in self.cpp_info.libs]

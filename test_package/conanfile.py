@@ -3,7 +3,6 @@ import os
 
 class AssimpTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    requires = "Assimp/4.0.1@slidewave/stable", "zlib/1.2.8@lasote/stable"
     generators = "cmake"
 
     def build(self):
@@ -17,4 +16,5 @@ class AssimpTestConan(ConanFile):
         self.copy("*.dylib*", dst="bin", src="lib")
 
     def test(self):
-       self.run(os.sep.join(["cd bin && .", "example"]))
+        os.chdir("bin")
+        self.run(".%sexample" % os.sep)
