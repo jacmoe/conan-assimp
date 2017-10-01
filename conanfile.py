@@ -13,7 +13,6 @@ class AssimpConan(ConanFile):
         "shared": [True, False],
         "double_precision": [True, False],
         "no_export": [True, False],
-        "additional_tools": [True, False],
         "fPIC": [True, False]
         }
     default_options = "=False\n".join(options.keys()) + "=False\n"
@@ -76,6 +75,7 @@ class AssimpConan(ConanFile):
         self.run("git clone https://github.com/assimp/assimp.git")
         self.run("cd assimp && git checkout tags/v4.0.1")
         self.run("cp cmakefix.patch assimp && cd assimp && git apply cmakefix.patch")
+        self.run("rm -r assimp/samples")
         # This small hack might be useful to guarantee proper /MT /MD linkage in MSVC
         # if the packaged project doesn't have variables to set it properly
         tools.replace_in_file("assimp/CMakeLists.txt", "PROJECT( Assimp )", '''PROJECT( Assimp )
@@ -84,10 +84,10 @@ conan_basic_setup()''')
 
     def build(self):
         cmake = CMake(self)
-        cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
+        cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared 
         cmake.definitions["ASSIMP_DOUBLE_PRECISION"] = self.options.double_precision
         cmake.definitions["ASSIMP_NO_EXPORT"] = self.options.no_export
-        cmake.definitions["ASSIMP_BUILD_ASSIMP_TOOLS"] = self.options.additional_tools
+        cmake.definitions["ASSIMP_BUILD_ASSIMP_TOOLS"] = False
         cmake.definitions["ASSIMP_BUILD_TESTS"] = False
         cmake.definitions["ASSIMP_BUILD_SAMPLES"] = False
         cmake.definitions["ASSIMP_INSTALL_PDB"] = False
@@ -205,8 +205,6 @@ conan_basic_setup()''')
         self.copy("*.dll", dst="bin", keep_path=False)
         self.copy("*.so", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
-        if self.options.additional_tools:
-            self.copy("*.exe", dst="bin", keep_path=False)
 
     def package_info(self):
         if self.settings.compiler == "Visual Studio":
