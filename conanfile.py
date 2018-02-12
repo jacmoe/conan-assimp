@@ -28,6 +28,7 @@ conan_basic_setup()""")
 
     def build(self):
         cmake = CMake(self)
+        cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
         cmake.definitions["ASSIMP_BUILD_TESTS"] = "OFF"
         cmake.definitions["ASSIMP_BUILD_SAMPLES"] = "OFF"
         if self.options.shared and self.settings.os != "Windows":
