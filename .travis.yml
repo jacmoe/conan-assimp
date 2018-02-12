@@ -5,10 +5,9 @@ sudo: required
 language: python
 env:
   global:
-    - CONAN_UPLOAD="https://api.bintray.com/conan/slidewavellc/conan-libs/"
     - CONAN_REFERENCE="Assimp/4.0.1"
-    - CONAN_USERNAME="slidewavellc"
-    - CONAN_CHANNEL="stable"
+    - CONAN_USERNAME="pvicente"
+    - CONAN_CHANNEL="testing"
 
 matrix:
    include:
