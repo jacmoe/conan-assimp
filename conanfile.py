@@ -28,12 +28,11 @@ conan_basic_setup()""")
 
     def build(self):
         cmake = CMake(self)
-        cmake.definitions["BUILD_SHARED_LIBS"] = "ON" if self.options.shared else "OFF"
         cmake.definitions["ASSIMP_BUILD_TESTS"] = "OFF"
         cmake.definitions["ASSIMP_BUILD_SAMPLES"] = "OFF"
-        if self.options.shared:
-            cmake.definitions["CMAKE_CXX_FLAGS"] = "fPIC"
-            cmake.definitions["CMAKE_C_FLAGS"] = "fPIC"
+        if self.options.shared and self.settings.os != "Windows":
+            cmake.definitions["CMAKE_CXX_FLAGS"] = "-fPIC"
+            cmake.definitions["CMAKE_C_FLAGS"] = "-fPIC"
         cmake.configure(source_folder=self.source_subfolder)
         cmake.build()
 
