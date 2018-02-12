@@ -7,7 +7,7 @@ class AssimpConan(ConanFile):
     license = "MIT"
     url = "https://github.com/cinderblocks/conan-assimp"
     description = "Conan package for Assmip"
-    requires = "zlib/[>1.2.8]@conan/stable"
+    requires = "zlib/1.2.11@conan/stable"
     settings = "os", "compiler", "build_type", "arch"
     options = {
         "shared": [True, False],
