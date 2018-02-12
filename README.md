@@ -1,4 +1,4 @@
-[ ![Download](https://api.bintray.com/packages/slidewavellc/conan-libs/Assimp%3Aslidewave/images/download.svg) ](https://bintray.com/slidewavellc/conan-libs/Assimp%3Aslidewave/_latestVersion) 
+[ ![Download](https://api.bintray.com/packages/pvicente/conan/Assimp%3Apvicente/images/download.svg?version=4.0.1%3Atesting) ](https://bintray.com/pvicente/conan/Assimp%3Apvicente/4.0.1%3Atesting/link)
 
 Travis : [![Build Status](https://travis-ci.org/pvicente/conan-assimp.svg?branch=testing%2F4.0.1)](https://travis-ci.org/pvicente/conan-assimp)
 
