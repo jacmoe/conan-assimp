@@ -5,6 +5,7 @@ env:
     - CONAN_CHANNEL: "testing"
     - CONAN_ARCHS: "x86_64"
     - CONAN_BUILD_TYPES: "Release"
+    - CONAN_UPLOAD: "https://api.bintray.com/conan/pvicente/conan"
 
 linux: &linux
    os: linux

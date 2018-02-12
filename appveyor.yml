@@ -5,6 +5,7 @@ environment:
     PYTHON_VERSION: "2.7.8"
     PYTHON_ARCH: "32"
 
+    CONAN_UPLOAD: "https://api.bintray.com/conan/pvicente/conan"
     CONAN_REFERENCE: "Assimp/4.0.1"
     CONAN_USERNAME: "pvicente"
     CONAN_CHANNEL: "testing"
