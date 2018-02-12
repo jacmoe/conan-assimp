@@ -9,7 +9,7 @@ class AssimpConan(ConanFile):
     license = "MIT"
     url = "https://github.com/jacmoe/conan-assimp"
     description = "Conan package for Assmip"
-    requires = "zlib/1.2.8@lasote/stable"
+    requires = "zlib/1.2.11@conan/stable"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=False"
