@@ -5,10 +5,9 @@ sudo: required
 language: python
 env:
   global:
-    - CONAN_UPLOAD="https://api.bintray.com/conan/jacmoe/Conan"
-    - CONAN_REFERENCE="Assimp/3.3.1"
-    - CONAN_USERNAME="jacmoe"
-    - CONAN_CHANNEL="stable"
+    - CONAN_REFERENCE: "Assimp/3.3.1"
+    - CONAN_USERNAME: "pvicente"
+    - CONAN_CHANNEL: "testing"
 
 matrix:
    include:
@@ -30,14 +29,14 @@ matrix:
         sudo: required
         language: python
         env: CONAN_GCC_VERSIONS=6.3 CONAN_USE_DOCKER=1   
-      #- os: osx 
-      #  osx_image: xcode8.3 # apple-clang 8.1
-      #  language: generic
-      #  env: CONAN_APPLE_CLANG_VERSIONS=8.1 # CONAN_CURRENT_PAGE=apple-clang_81   
-      #- os: osx 
-      #  osx_image: xcode8.2  # apple-clang 8.0
-      #  language: generic
-      #  env: CONAN_APPLE_CLANG_VERSIONS=8.0 # CONAN_CURRENT_PAGE=apple-clang_80    
+      - os: osx
+        osx_image: xcode8.3 # apple-clang 8.1
+        language: generic
+        env: CONAN_APPLE_CLANG_VERSIONS=8.1 # CONAN_CURRENT_PAGE=apple-clang_81
+      - os: osx
+        osx_image: xcode8.2  # apple-clang 8.0
+        language: generic
+        env: CONAN_APPLE_CLANG_VERSIONS=8.0 # CONAN_CURRENT_PAGE=apple-clang_80
 
 before_install:
  - chmod +x ./.travis/install.sh
