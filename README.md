@@ -1,8 +1,8 @@
 [ ![Download](https://api.bintray.com/packages/slidewavellc/conan-libs/Assimp%3Aslidewave/images/download.svg) ](https://bintray.com/slidewavellc/conan-libs/Assimp%3Aslidewave/_latestVersion) 
 
-Travis : [![Build Status](https://travis-ci.org/cinderblocks/conan-assimp.svg?branch=master)](https://travis-ci.org/cinderblocks/conan-assimp)
+Travis : [![Build Status](https://travis-ci.org/pvicente/conan-assimp.svg?branch=testing%2F4.0.1)](https://travis-ci.org/pvicente/conan-assimp)
 
-AppVeyor : [![Build status](https://ci.appveyor.com/api/projects/status/k8hdn6w8eafkp7yv?svg=true)](https://ci.appveyor.com/project/cinderblocks57647/conan-assimp)
+AppVeyor : [![Build status](https://ci.appveyor.com/api/projects/status/janqy71mtspxctgw/branch/testing/4.0.1?svg=true)](https://ci.appveyor.com/project/pvicente/conan-assimp/branch/testing/4.0.1)
 
 
 # conan-assimp
