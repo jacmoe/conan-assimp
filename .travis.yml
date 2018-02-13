@@ -38,16 +38,10 @@ matrix:
         env: CONAN_GCC_VERSIONS=7 CONAN_DOCKER_IMAGE=lasote/conangcc7 CONAN_CURRENT_PAGE=2
       - <<: *osx
         osx_image: xcode7.3
-        env: CONAN_APPLE_CLANG_VERSIONS=7.3 CONAN_CURRENT_PAGE=1
-      - <<: *osx
-        osx_image: xcode7.3
-        env: CONAN_APPLE_CLANG_VERSIONS=7.3 CONAN_CURRENT_PAGE=2
+        env: CONAN_APPLE_CLANG_VERSIONS=7.3
       - <<: *osx
         osx_image: xcode8.3
-        env: CONAN_APPLE_CLANG_VERSIONS=8.1 CONAN_CURRENT_PAGE=1
-      - <<: *osx
-        osx_image: xcode8.3
-        env: CONAN_APPLE_CLANG_VERSIONS=8.1 CONAN_CURRENT_PAGE=2
+        env: CONAN_APPLE_CLANG_VERSIONS=8.1
 
 install:
   - chmod +x .travis/install.sh
