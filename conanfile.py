@@ -28,7 +28,6 @@ conan_basic_setup()""")
 
     def build(self):
         cmake = CMake(self)
-        cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
         cmake.definitions["ASSIMP_BUILD_TESTS"] = "OFF"
         cmake.definitions["ASSIMP_BUILD_SAMPLES"] = "OFF"
         if self.options.shared and self.settings.os != "Windows":
@@ -44,7 +43,7 @@ conan_basic_setup()""")
         self.copy("*.inl", dst="include", src=include_folder)
         self.copy("*assimp.lib", dst="lib", keep_path=False)
         self.copy("*.dll", dst="bin", keep_path=False)
-        self.copy("*.so", dst="lib", keep_path=False)
+        self.copy("*.so*", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
 
     def package_info(self):
