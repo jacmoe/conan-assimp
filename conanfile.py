@@ -31,8 +31,8 @@ conan_basic_setup()""")
         cmake.definitions["ASSIMP_BUILD_TESTS"] = "OFF"
         cmake.definitions["ASSIMP_BUILD_SAMPLES"] = "OFF"
         if self.options.shared and self.settings.os != "Windows":
-            cmake.definitions["CMAKE_CXX_FLAGS"] = "-fPIC"
-            cmake.definitions["CMAKE_C_FLAGS"] = "-fPIC"
+            cmake.definitions["CONAN_CXX_FLAGS"] = "-fPIC"
+            cmake.definitions["CONAN_C_FLAGS"] = "-fPIC"
         cmake.configure(source_folder=self.source_subfolder)
         cmake.build()
 
