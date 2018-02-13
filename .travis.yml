@@ -5,6 +5,7 @@ env:
     - CONAN_CHANNEL: "testing"
     - CONAN_UPLOAD: "https://api.bintray.com/conan/pvicente/conan"
     - CONAN_TOTAL_PAGES: 2
+    - CONAN_DOCKER_32_IMAGES: 1 # Enable docker 32 bits images for the builds with arch=x86
 
 linux: &linux
    os: linux
