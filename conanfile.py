@@ -46,7 +46,7 @@ conan_basic_setup()""")
 
         if self.options.shared:
             self.copy("*.dll", src="bin", dst="bin", keep_path=False)
-            self.copy("*.so*", dst="lib", keep_path=False)
+            self.copy("*assimp*.so*", dst="lib", keep_path=False)
             self.copy("*.dylib*", dst="lib", keep_path=False)
 
     def package_info(self):
