@@ -1,9 +1,8 @@
-[ ![Download](https://api.bintray.com/packages/pvicente/conan/Assimp%3Apvicente/images/download.svg?version=3.3.1%3Atesting) ](https://bintray.com/pvicente/conan/Assimp%3Apvicente/3.3.1%3Atesting/link)
+[ ![Download](https://api.bintray.com/packages/jacmoe/Conan/Assimp%3Ajacmoe/images/download.svg) ](https://bintray.com/jacmoe/Conan/Assimp%3Ajacmoe/_latestVersion)
 
-Travis : [![Build Status](https://travis-ci.org/pvicente/conan-assimp.svg?branch=testing%2F3.3.1)](https://travis-ci.org/pvicente/conan-assimp)
+Travis : [![Build Status](https://travis-ci.org/jacmoe/conan-assimp.svg?branch=master)](https://travis-ci.org/jacmoe/conan-assimp)
 
-AppVeyor : [![Build status](https://ci.appveyor.com/api/projects/status/janqy71mtspxctgw/branch/testing/3.3.1?svg=true)](https://ci.appveyor.com/project/pvicente/conan-assimp/branch/testing/3.3.1)
-
+AppVeyor : [![Build status](https://ci.appveyor.com/api/projects/status/tsymtu12n2txr0um/branch/master?svg=true)](https://ci.appveyor.com/project/jacmoe/conan-assimp/branch/master)
 
 
 # conan-assimp
