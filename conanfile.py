@@ -71,7 +71,7 @@ class AssimpConan(ConanFile):
     default_options += default_format_options
     generators = "cmake"
     exports = ["LICENSE.md"]
-    exports_sources = "cmakefix.patch"
+    exports_sources = "cmake_msvc.patch"
 
     def configure(self):
         if self.settings.os == "Windows":
