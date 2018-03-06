@@ -204,14 +204,15 @@ conan_basic_setup()''')
         if self.options.with_mmd:
             cmake.definitions["ASSIMP_BUILD_MMD_IMPORTER"] = True
 
-        cmake.configure(source_dir=self.source_subfolder)
+        cmake.configure(source_folder=self.source_subfolder)
         cmake.build()
         cmake.install()
 
     def package(self):
-        self.copy("*.h", dst="include", src="include")
-        self.copy("*.hpp", dst="include", src="include")
-        self.copy("*.inl", dst="include", src="include")
+        include_folder = os.path.join(self.source_subfolder, "include")
+        self.copy("*.h", dst="include", src=include_folder)
+        self.copy("*.hpp", dst="include", src=include_folder)
+        self.copy("*.inl", dst="include", src=include_folder)
         self.copy("*.a", dst="lib", keep_path=False)
         self.copy("*.lib", src="lib", dst="lib", keep_path=False)
 
