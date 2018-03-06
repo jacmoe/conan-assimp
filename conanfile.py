@@ -1,4 +1,5 @@
 from conans import ConanFile, CMake, tools
+import os
 
 
 class AssimpConan(ConanFile):
@@ -10,6 +11,7 @@ class AssimpConan(ConanFile):
     description = "Conan package for Assmip"
     requires = "zlib/1.2.11@conan/stable"
     settings = "os", "compiler", "build_type", "arch"
+    source_subfolder = "sources"
     options = {
         "shared": [True, False],
         "double_precision": [True, False],
@@ -71,20 +73,22 @@ class AssimpConan(ConanFile):
     default_options += default_format_options
     generators = "cmake"
     exports = ["LICENSE.md"]
-    exports_sources = "cmake_msvc.patch"
+    cmake_patch_file = "cmake_msvc.patch"
+    exports_sources = [cmake_patch_file]
 
     def configure(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
 
     def source(self):
-        self.run("git clone https://github.com/assimp/assimp.git")
-        self.run("cd assimp && git checkout tags/v4.0.1")
-        self.run("cp cmakefix.patch assimp && cd assimp && git apply cmakefix.patch")
-        self.run("rm -r assimp/samples")
-        # This small hack might be useful to guarantee proper /MT /MD linkage in MSVC
-        # if the packaged project doesn't have variables to set it properly
-        tools.replace_in_file("assimp/CMakeLists.txt", "PROJECT( Assimp )", '''PROJECT( Assimp )
+        source_url = "%s/archive/v%s.zip" % (self.homepage, self.version)
+        tools.get(source_url)
+        os.rename("assimp-%s" % (self.version,), self.source_subfolder)
+        if self.settings.os == "Windows":
+            # This small hack might be useful to guarantee proper /MT /MD linkage in MSVC
+            # if the packaged project doesn't have variables to set it properly
+            tools.patch(patch_file=self.cmake_patch_file)
+        tools.replace_in_file("%s/CMakeLists.txt" % self.source_subfolder, "PROJECT( Assimp )", '''PROJECT( Assimp )
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()''')
 
@@ -200,7 +204,7 @@ conan_basic_setup()''')
         if self.options.with_mmd:
             cmake.definitions["ASSIMP_BUILD_MMD_IMPORTER"] = True
 
-        cmake.configure(source_dir="assimp")
+        cmake.configure(source_dir=self.source_subfolder)
         cmake.build()
         cmake.install()
 

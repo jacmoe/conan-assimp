@@ -1,21 +1,8 @@
-From 7557fdbb72138ad0a4158e7290d2e11597622c95 Mon Sep 17 00:00:00 2001
-From:  <SeanMooreSW@gmail.com>
-Date: Sat, 29 Jul 2017 07:45:25 -0400
-Subject: [PATCH] Fix install for builds with MSVC compiler and NMake.
 
-The CMake variable "MSVC" and the related versioned variables indicate that the
-Visual Studio compiler is used but when using that compiler and the "NMake
-Makefiles JOM" build generator the files it tried to install weren't in the
-expected Debug folder.
----
- CMakeLists.txt      | 27 +++++++++++++++++++--------
- code/CMakeLists.txt | 27 +++++++++++++++++++--------
- 2 files changed, 38 insertions(+), 16 deletions(-)
-
-diff --git a/CMakeLists.txt b/CMakeLists.txt
+diff --git a/sources/CMakeLists.txt b/sources/CMakeLists.txt
 index d781d1fd7..1c9821896 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
+--- a/sources/CMakeLists.txt
++++ b/sources/CMakeLists.txt
 @@ -472,13 +472,24 @@ if(WIN32)
  
    if(MSVC12 OR MSVC14)
@@ -49,10 +36,10 @@ index d781d1fd7..1c9821896 100644
 +    ENDIF()
    ENDIF(MSVC12 OR MSVC14)
  ENDIF (WIN32)
-diff --git a/code/CMakeLists.txt b/code/CMakeLists.txt
+diff --git a/sources/code/CMakeLists.txt b/sources/code/CMakeLists.txt
 index 0477f5fef..43e8ccf36 100644
---- a/code/CMakeLists.txt
-+++ b/code/CMakeLists.txt
+--- a/sources/code/CMakeLists.txt
++++ b/sources/code/CMakeLists.txt
 @@ -934,14 +934,25 @@ if (ASSIMP_ANDROID_JNIIOSYSTEM)
  endif(ASSIMP_ANDROID_JNIIOSYSTEM)
  
