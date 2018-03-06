@@ -5,7 +5,8 @@ class AssimpConan(ConanFile):
     name = "Assimp"
     version = "4.0.1"
     license = "MIT"
-    url = "https://github.com/cinderblocks/conan-assimp"
+    homepage = "https://github.com/assimp/assimp"
+    url = "https://github.com/jacmoe/conan-assimp"
     description = "Conan package for Assmip"
     requires = "zlib/1.2.11@conan/stable"
     settings = "os", "compiler", "build_type", "arch"
@@ -69,7 +70,12 @@ class AssimpConan(ConanFile):
     options.update(format_options)
     default_options += default_format_options
     generators = "cmake"
+    exports = ["LICENSE.md"]
     exports_sources = "cmakefix.patch"
+
+    def configure(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
 
     def source(self):
         self.run("git clone https://github.com/assimp/assimp.git")
@@ -91,9 +97,9 @@ conan_basic_setup()''')
         cmake.definitions["ASSIMP_BUILD_TESTS"] = False
         cmake.definitions["ASSIMP_BUILD_SAMPLES"] = False
         cmake.definitions["ASSIMP_INSTALL_PDB"] = False
-        if self.options.fPIC and self.settings.compiler != "Visual Studio":
-            cmake.definitions["CMAKE_CXX_FLAGS"] = "-fPIC"
-            cmake.definitions["CMAKE_C_FLAGS"] = "-fPIC"
+        if self.settings.os != "Windows":
+            cmake.definitions['CMAKE_POSITION_INDEPENDENT_CODE'] = self.options.fPIC
+
         # X3D Importer is broken on VS2017 for 4.0.1. Fixed in HEAD, so remove this next version
         if self.settings.compiler == "Visual Studio":
             self.options.with_x3d = False
@@ -195,22 +201,20 @@ conan_basic_setup()''')
             cmake.definitions["ASSIMP_BUILD_MMD_IMPORTER"] = True
 
         cmake.configure(source_dir="assimp")
-        cmake.build(target="install")
+        cmake.build()
+        cmake.install()
 
     def package(self):
         self.copy("*.h", dst="include", src="include")
         self.copy("*.hpp", dst="include", src="include")
         self.copy("*.inl", dst="include", src="include")
-        self.copy("*.lib", dst="lib", keep_path=False)
-        self.copy("*.dll", dst="bin", keep_path=False)
-        self.copy("*.so", dst="lib", keep_path=False)
         self.copy("*.a", dst="lib", keep_path=False)
+        self.copy("*.lib", src="lib", dst="lib", keep_path=False)
+
+        if self.options.shared:
+            self.copy("*.dll", src="bin", dst="bin", keep_path=False)
+            self.copy("*.so*", dst="lib", keep_path=False)
+            self.copy("*.dylib*", dst="lib", keep_path=False)
 
     def package_info(self):
-        if self.settings.compiler == "Visual Studio":
-            self.cpp_info.libs = ["assimp-vc140-mt", "IrrXML"]
-        else:
-            self.cpp_info.libs = ["assimp", "IrrXML"]
-        is_apple = (self.settings.os == 'Macos' or self.settings.os == 'iOS')
-        if self.settings.build_type == "Debug" and not is_apple and not self.settings.compiler == "Visual Studio":
-            self.cpp_info.libs = [lib+'d' for lib in self.cpp_info.libs]
+        self.cpp_info.libs = tools.collect_libs(self)
