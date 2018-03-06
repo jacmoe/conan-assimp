@@ -16,61 +16,62 @@ class AssimpConan(ConanFile):
         "shared": [True, False],
         "double_precision": [True, False],
         "no_export": [True, False],
-        "fPIC": [True, False]
-        }
-    default_options = "=False\n".join(options.keys()) + "=False\n"
-    format_options = {
-        "with_amf": [True, False],
-        "with_3ds": [True, False],
-        "with_ac": [True, False],
-        "with_ase": [True, False],
-        "with_assbin": [True, False],
-        "with_assxml": [True, False],
-        "with_b3d": [True, False],
-        "with_bvh": [True, False],
-        "with_collada": [True, False],
-        "with_dxf": [True, False],
-        "with_csm": [True, False],
-        "with_hmp": [True, False],
-        "with_irrmesh": [True, False],
-        "with_irr": [True, False],
-        "with_lwo": [True, False],
-        "with_lws": [True, False],
-        "with_md2": [True, False],
-        "with_md3": [True, False],
-        "with_md5": [True, False],
-        "with_mdc": [True, False],
-        "with_mdl": [True, False],
-        "with_nff": [True, False],
-        "with_ndo": [True, False],
-        "with_off": [True, False],
-        "with_obj": [True, False],
-        "with_ogre": [True, False],
-        "with_opengex": [True, False],
-        "with_ply": [True, False],
-        "with_ms3d": [True, False],
-        "with_cob": [True, False],
-        "with_blend": [True, False],
-        "with_ifc": [True, False],
-        "with_xgl": [True, False],
-        "with_fbx": [True, False],
-        "with_q3d": [True, False],
-        "with_q3bsp": [True, False],
-        "with_raw": [True, False],
-        "with_sib": [True, False],
-        "with_smd": [True, False],
-        "with_stl": [True, False],
-        "with_terragen": [True, False],
-        "with_3d": [True, False],
-        "with_x": [True, False],
-        "with_x3d": [True, False],
-        "with_gltf": [True, False],
-        "with_3mf": [True, False],
-        "with_mmd": [True, False]
-        }
-    default_format_options = "=True\n".join(format_options.keys()) + "=True"
-    options.update(format_options)
-    default_options += default_format_options
+        "fPIC": [True, False],
+    }
+    # only fPIC enabled by default
+    default_options = ("=False\n".join(options.keys()) + "=False\n").replace("fPIC=False", "fPIC=True")
+    format_option_map = {
+        "with_3d": "ASSIMP_BUILD_3D_IMPORTER",
+        "with_3ds": "ASSIMP_BUILD_3DS_IMPORTER",
+        "with_3mf": "ASSIMP_BUILD_3MF_IMPORTER",
+        "with_ac": "ASSIMP_BUILD_AC_IMPORTER",
+        "with_amf": "ASSIMP_BUILD_AMF_IMPORTER",
+        "with_ase": "ASSIMP_BUILD_ASE_IMPORTER",
+        "with_assbin": "ASSIMP_BUILD_ASSBIN_IMPORTER",
+        "with_assxml": "ASSIMP_BUILD_ASSXML_IMPORTER",
+        "with_b3d": "ASSIMP_BUILD_B3D_IMPORTER",
+        "with_blend": "ASSIMP_BUILD_BLEND_IMPORTER",
+        "with_bvh": "ASSIMP_BUILD_BVH_IMPORTER",
+        "with_cob": "ASSIMP_BUILD_COB_IMPORTER",
+        "with_collada": "ASSIMP_BUILD_COLLADA_IMPORTER",
+        "with_csm": "ASSIMP_BUILD_CSM_IMPORTER",
+        "with_dxf": "ASSIMP_BUILD_DXF_IMPORTER",
+        "with_fbx": "ASSIMP_BUILD_FBX_IMPORTER",
+        "with_gltf": "ASSIMP_BUILD_GLTF_IMPORTER",
+        "with_hmp": "ASSIMP_BUILD_HMP_IMPORTER",
+        "with_ifc": "ASSIMP_BUILD_IFC_IMPORTER",
+        "with_irr": "ASSIMP_BUILD_IRR_IMPORTER",
+        "with_irrmesh": "ASSIMP_BUILD_IRRMESH_IMPORTER",
+        "with_lwo": "ASSIMP_BUILD_LWO_IMPORTER",
+        "with_lws": "ASSIMP_BUILD_LWS_IMPORTER",
+        "with_md2": "ASSIMP_BUILD_MD2_IMPORTER",
+        "with_md3": "ASSIMP_BUILD_MD3_IMPORTER",
+        "with_md5": "ASSIMP_BUILD_MD5_IMPORTER",
+        "with_mdc": "ASSIMP_BUILD_MDC_IMPORTER",
+        "with_mdl": "ASSIMP_BUILD_MDL_IMPORTER",
+        "with_mmd": "ASSIMP_BUILD_MMD_IMPORTER",
+        "with_ms3d": "ASSIMP_BUILD_MS3D_IMPORTER",
+        "with_ndo": "ASSIMP_BUILD_NDO_IMPORTER",
+        "with_nff": "ASSIMP_BUILD_NFF_IMPORTER",
+        "with_obj": "ASSIMP_BUILD_OBJ_IMPORTER",
+        "with_off": "ASSIMP_BUILD_OFF_IMPORTER",
+        "with_ogre": "ASSIMP_BUILD_OGRE_IMPORTER",
+        "with_opengex": "ASSIMP_BUILD_OPENGEX_IMPORTER",
+        "with_ply": "ASSIMP_BUILD_PLY_IMPORTER",
+        "with_q3bsp": "ASSIMP_BUILD_Q3BSP_IMPORTER",
+        "with_q3d": "ASSIMP_BUILD_Q3D_IMPORTER",
+        "with_raw": "ASSIMP_BUILD_RAW_IMPORTER",
+        "with_sib": "ASSIMP_BUILD_SIB_IMPORTER",
+        "with_smd": "ASSIMP_BUILD_SMD_IMPORTER",
+        "with_stl": "ASSIMP_BUILD_STL_IMPORTER",
+        "with_terragen": "ASSIMP_BUILD_TERRAGEN_IMPORTER",
+        "with_x": "ASSIMP_BUILD_X_IMPORTER",
+        "with_x3d": "ASSIMP_BUILD_X3D_IMPORTER",
+        "with_xgl": "ASSIMP_BUILD_XGL_IMPORTER",
+    }
+    options.update(dict.fromkeys(format_option_map, [True, False]))
+    # Format options enabled by default
+    default_options += "=True\n".join(format_option_map.keys()) + "=True"
     generators = "cmake"
     exports = ["LICENSE.md"]
     cmake_patch_file = "cmake_msvc.patch"
@@ -84,10 +85,12 @@ class AssimpConan(ConanFile):
         source_url = "%s/archive/v%s.zip" % (self.homepage, self.version)
         tools.get(source_url)
         os.rename("assimp-%s" % (self.version,), self.source_subfolder)
+
         if self.settings.os == "Windows":
             # This small hack might be useful to guarantee proper /MT /MD linkage in MSVC
             # if the packaged project doesn't have variables to set it properly
             tools.patch(patch_file=self.cmake_patch_file)
+
         tools.replace_in_file("%s/CMakeLists.txt" % self.source_subfolder, "PROJECT( Assimp )", '''PROJECT( Assimp )
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()''')
@@ -101,108 +104,18 @@ conan_basic_setup()''')
         cmake.definitions["ASSIMP_BUILD_TESTS"] = False
         cmake.definitions["ASSIMP_BUILD_SAMPLES"] = False
         cmake.definitions["ASSIMP_INSTALL_PDB"] = False
+
         if self.settings.os != "Windows":
             cmake.definitions['CMAKE_POSITION_INDEPENDENT_CODE'] = self.options.fPIC
+
+        # Enable/Disable format importer options in cmake
+        cmake.definitions["ASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT"] = False
+        for option, definition in self.format_option_map.items():
+            cmake.definitions[definition] = bool(getattr(self.options, option))
 
         # X3D Importer is broken on VS2017 for 4.0.1. Fixed in HEAD, so remove this next version
         if self.settings.compiler == "Visual Studio":
             self.options.with_x3d = False
-
-        cmake.definitions["ASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT"] = False
-        if self.options.with_amf:
-            cmake.definitions["ASSIMP_BUILD_AMF_IMPORTER"] = True
-        if self.options.with_3ds:
-            cmake.definitions["ASSIMP_BUILD_3DS_IMPORTER"] = True 
-        if self.options.with_ac:
-            cmake.definitions["ASSIMP_BUILD_AC_IMPORTER"] = True 
-        if self.options.with_ase:
-            cmake.definitions["ASSIMP_BUILD_ASE_IMPORTER"] = True 
-        if self.options.with_assbin:
-            cmake.definitions["ASSIMP_BUILD_ASSBIN_IMPORTER"] = True 
-        if self.options.with_assxml:
-            cmake.definitions["ASSIMP_BUILD_ASSXML_IMPORTER"] = True 
-        if self.options.with_b3d:
-            cmake.definitions["ASSIMP_BUILD_B3D_IMPORTER"] = True 
-        if self.options.with_bvh:
-            cmake.definitions["ASSIMP_BUILD_BVH_IMPORTER"] = True 
-        if self.options.with_collada:
-            cmake.definitions["ASSIMP_BUILD_COLLADA_IMPORTER"] = True 
-        if self.options.with_dxf:
-            cmake.definitions["ASSIMP_BUILD_DXF_IMPORTER"] = True 
-        if self.options.with_csm:
-            cmake.definitions["ASSIMP_BUILD_CSM_IMPORTER"] = True 
-        if self.options.with_hmp:
-            cmake.definitions["ASSIMP_BUILD_HMP_IMPORTER"] = True 
-        if self.options.with_irrmesh:
-            cmake.definitions["ASSIMP_BUILD_IRRMESH_IMPORTER"] = True 
-        if self.options.with_irr:
-            cmake.definitions["ASSIMP_BUILD_IRR_IMPORTER"] = True 
-        if self.options.with_lwo:
-            cmake.definitions["ASSIMP_BUILD_LWO_IMPORTER"] = True 
-        if self.options.with_lws:
-            cmake.definitions["ASSIMP_BUILD_LWS_IMPORTER"] = True 
-        if self.options.with_md2:
-            cmake.definitions["ASSIMP_BUILD_MD2_IMPORTER"] = True 
-        if self.options.with_md3:
-            cmake.definitions["ASSIMP_BUILD_MD3_IMPORTER"] = True 
-        if self.options.with_md5:
-            cmake.definitions["ASSIMP_BUILD_MD5_IMPORTER"] = True 
-        if self.options.with_mdc:
-            cmake.definitions["ASSIMP_BUILD_MDC_IMPORTER"] = True 
-        if self.options.with_mdl:
-            cmake.definitions["ASSIMP_BUILD_MDL_IMPORTER"] = True 
-        if self.options.with_nff:
-            cmake.definitions["ASSIMP_BUILD_NFF_IMPORTER"] = True 
-        if self.options.with_ndo:
-            cmake.definitions["ASSIMP_BUILD_NDO_IMPORTER"] = True 
-        if self.options.with_off:
-            cmake.definitions["ASSIMP_BUILD_OFF_IMPORTER"] = True 
-        if self.options.with_obj:
-            cmake.definitions["ASSIMP_BUILD_OBJ_IMPORTER"] = True 
-        if self.options.with_ogre:
-            cmake.definitions["ASSIMP_BUILD_OGRE_IMPORTER"] = True 
-        if self.options.with_opengex:
-            cmake.definitions["ASSIMP_BUILD_OPENGEX_IMPORTER"] = True 
-        if self.options.with_ply:
-            cmake.definitions["ASSIMP_BUILD_PLY_IMPORTER"] = True 
-        if self.options.with_ms3d:
-            cmake.definitions["ASSIMP_BUILD_MS3D_IMPORTER"] = True 
-        if self.options.with_cob:
-            cmake.definitions["ASSIMP_BUILD_COB_IMPORTER"] = True 
-        if self.options.with_blend:
-            cmake.definitions["ASSIMP_BUILD_BLEND_IMPORTER"] = True 
-        if self.options.with_ifc:
-            cmake.definitions["ASSIMP_BUILD_IFC_IMPORTER"] = True 
-        if self.options.with_xgl:
-            cmake.definitions["ASSIMP_BUILD_XGL_IMPORTER"] = True 
-        if self.options.with_fbx:
-            cmake.definitions["ASSIMP_BUILD_FBX_IMPORTER"] = True 
-        if self.options.with_q3d:
-            cmake.definitions["ASSIMP_BUILD_Q3D_IMPORTER"] = True 
-        if self.options.with_q3bsp:
-            cmake.definitions["ASSIMP_BUILD_Q3BSP_IMPORTER"] = True 
-        if self.options.with_raw:
-            cmake.definitions["ASSIMP_BUILD_RAW_IMPORTER"] = True 
-        if self.options.with_sib:
-            cmake.definitions["ASSIMP_BUILD_SIB_IMPORTER"] = True 
-        if self.options.with_smd:
-            cmake.definitions["ASSIMP_BUILD_SMD_IMPORTER"] = True 
-        if self.options.with_stl:
-            cmake.definitions["ASSIMP_BUILD_STL_IMPORTER"] = True 
-        if self.options.with_terragen:
-            cmake.definitions["ASSIMP_BUILD_TERRAGEN_IMPORTER"] = True 
-        if self.options.with_3d:
-            cmake.definitions["ASSIMP_BUILD_3D_IMPORTER"] = True 
-        if self.options.with_x:
-            cmake.definitions["ASSIMP_BUILD_X_IMPORTER"] = True 
-        if self.options.with_x3d:
-            cmake.definitions["ASSIMP_BUILD_X3D_IMPORTER"] = True
-        if self.options.with_gltf:
-            cmake.definitions["ASSIMP_BUILD_GLTF_IMPORTER"] = True 
-        if self.options.with_3mf:
-            cmake.definitions["ASSIMP_BUILD_3MF_IMPORTER"] = True
-        if self.options.with_mmd:
-            cmake.definitions["ASSIMP_BUILD_MMD_IMPORTER"] = True
 
         cmake.configure(source_folder=self.source_subfolder)
         cmake.build()
