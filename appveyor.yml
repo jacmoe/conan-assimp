@@ -7,7 +7,7 @@ environment:
 
     #CONAN_UPLOAD: "https://api.bintray.com/conan/jacmoe/Conan"
     CONAN_REFERENCE: "Assimp/4.1.0"
-    CONAN_USERNAME: "jacmoe"
+    #CONAN_USERNAME: "jacmoe"
     CONAN_CHANNEL: "stable"
     VS150COMNTOOLS: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\"
     CONAN_TOTAL_PAGES: 2
