@@ -3,7 +3,7 @@ env:
     - CONAN_REFERENCE: "Assimp/3.3.1"
     - CONAN_USERNAME: "jacmoe"
     - CONAN_CHANNEL: "stable"
-    - CONAN_UPLOAD: "https://api.bintray.com/conan/jacmoe/Conan"
+    #- CONAN_UPLOAD: "https://api.bintray.com/conan/jacmoe/Conan"
     - CONAN_TOTAL_PAGES: 2
     - CONAN_DOCKER_32_IMAGES: 1 # Enable docker 32 bits images for the builds with arch=x86
 
