@@ -6,7 +6,7 @@ environment:
     PYTHON_ARCH: "32"
 
     CONAN_UPLOAD: "https://api.bintray.com/conan/pvicente/conan"
-    CONAN_REFERENCE: "Assimp/4.0.1"
+    CONAN_REFERENCE: "Assimp/4.1.0"
     CONAN_USERNAME: "pvicente"
     CONAN_CHANNEL: "testing"
     CONAN_ARCHS: "x86_64"
@@ -14,8 +14,8 @@ environment:
     VS150COMNTOOLS: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\"
 
     matrix:
-#        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-#          CONAN_VISUAL_VERSIONS: 12
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+          CONAN_VISUAL_VERSIONS: 12
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
           CONAN_VISUAL_VERSIONS: 14
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017

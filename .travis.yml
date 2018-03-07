@@ -1,6 +1,6 @@
 env:
   global:
-    - CONAN_REFERENCE: "Assimp/4.0.1"
+    - CONAN_REFERENCE: "Assimp/4.1.0"
     - CONAN_USERNAME: "pvicente"
     - CONAN_CHANNEL: "testing"
     - CONAN_ARCHS: "x86_64"
