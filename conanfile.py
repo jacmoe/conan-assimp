@@ -4,7 +4,7 @@ import os
 
 class AssimpConan(ConanFile):
     name = "Assimp"
-    version = "4.0.1"
+    version = "4.1.0"
     license = "MIT"
     homepage = "https://github.com/assimp/assimp"
     url = "https://github.com/jacmoe/conan-assimp"
