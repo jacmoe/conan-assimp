@@ -1,8 +1,8 @@
-[ ![Download](https://api.bintray.com/packages/pvicente/conan/Assimp%3Apvicente/images/download.svg?version=4.0.1%3Atesting) ](https://bintray.com/pvicente/conan/Assimp%3Apvicente/4.0.1%3Atesting/link)
+[ ![Download](https://api.bintray.com/packages/jacmoe/Conan/Assimp%3Ajacmoe/images/download.svg) ](https://bintray.com/jacmoe/Conan/Assimp%3Ajacmoe/_latestVersion)
 
-Travis : [![Build Status](https://travis-ci.org/pvicente/conan-assimp.svg?branch=testing%2F4.0.1)](https://travis-ci.org/pvicente/conan-assimp)
+Travis : [![Build Status](https://travis-ci.org/jacmoe/conan-assimp.svg?branch=master)](https://travis-ci.org/jacmoe/conan-assimp)
 
-AppVeyor : [![Build status](https://ci.appveyor.com/api/projects/status/janqy71mtspxctgw/branch/testing/4.0.1?svg=true)](https://ci.appveyor.com/project/pvicente/conan-assimp/branch/testing/4.0.1)
+AppVeyor : [![Build status](https://ci.appveyor.com/api/projects/status/tsymtu12n2txr0um/branch/master?svg=true)](https://ci.appveyor.com/project/jacmoe/conan-assimp/branch/master)
 
 
 # conan-assimp
@@ -11,7 +11,7 @@ Conan.io package for Assimp
 ### Basic setup
 
 ```
-$ conan install Assimp/4.0.1@slidewave/stable
+$ conan install Assimp/4.1.0@jacmoe/testing
 ```
 
 ### Project setup
@@ -19,7 +19,7 @@ $ conan install Assimp/4.0.1@slidewave/stable
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 ```
     [requires]
-    Assimp/4.0.1@slidewave/stable
+    Assimp/4.1.0@jacmoe/testing
 
     [options]
     Assimp:shared=true # false
