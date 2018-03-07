@@ -122,6 +122,7 @@ conan_basic_setup()''')
         cmake.install()
 
     def package(self):
+        self.copy("*LICENSE*", dst="licenses", src=self.source_subfolder, keep_path=False)
         include_folder = os.path.join(self.source_subfolder, "include")
         self.copy("*.h", dst="include", src=include_folder)
         self.copy("*.hpp", dst="include", src=include_folder)
