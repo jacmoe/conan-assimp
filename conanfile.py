@@ -11,10 +11,18 @@ class AssimpConan(ConanFile):
     description = "Conan package for Assmip"
     requires = "zlib/1.2.11@conan/stable"
     settings = "os", "compiler", "build_type", "arch"
-    options = {"shared": [True, False]}
+    options = {
+        "shared": [True, False],
+        "fPIC": [True, False],
+    }
     source_subfolder = "sources"
-    default_options = "shared=False"
+    default_options = "shared=False", "fPIC=True"
     generators = "cmake"
+    exports = ["LICENSE.md"]
+
+    def configure(self):
+        if self.settings.os == "Windows":
+            del self.options.fPIC
 
     def source(self):
         source_url = "%s/archive/v%s.zip" % (self.homepage, self.version)
@@ -30,13 +38,15 @@ conan_basic_setup()""")
         cmake = CMake(self)
         cmake.definitions["ASSIMP_BUILD_TESTS"] = "OFF"
         cmake.definitions["ASSIMP_BUILD_SAMPLES"] = "OFF"
-        if self.options.shared and self.settings.os != "Windows":
-            cmake.definitions["CONAN_CXX_FLAGS"] = "-fPIC"
-            cmake.definitions["CONAN_C_FLAGS"] = "-fPIC"
+        if self.settings.os != "Windows":
+            cmake.definitions['CMAKE_POSITION_INDEPENDENT_CODE'] = self.options.fPIC
         cmake.configure(source_folder=self.source_subfolder)
         cmake.build()
 
     def package(self):
+        # There are more than one LICENSE in source tree, choosing package and src license
+        self.copy("LICENSE.md", dst="licenses", keep_path=False)
+        self.copy("LICENSE", dst="licenses", src=self.source_subfolder, keep_path=False)
         include_folder = os.path.join(self.source_subfolder, "include")
         self.copy("*.h", dst="include", src=include_folder)
         self.copy("*.hpp", dst="include", src=include_folder)
