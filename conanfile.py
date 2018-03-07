@@ -75,7 +75,7 @@ class AssimpConan(ConanFile):
     generators = "cmake"
     exports = ["LICENSE.md"]
 
-    def configure(self):
+    def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
 
