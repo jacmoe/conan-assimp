@@ -105,6 +105,9 @@ conan_basic_setup()''')
         cmake.definitions["ASSIMP_BUILD_SAMPLES"] = False
         cmake.definitions["ASSIMP_INSTALL_PDB"] = False
 
+        # Disabling ASSIMP_ANDROID_JNIIOSYSTEM, failing in cmake install
+        cmake.definitions["ASSIMP_ANDROID_JNIIOSYSTEM"] = False
+
         if self.settings.os != "Windows":
             cmake.definitions['CMAKE_POSITION_INDEPENDENT_CODE'] = self.options.fPIC
 
