@@ -74,8 +74,6 @@ class AssimpConan(ConanFile):
     default_options += "=True\n".join(format_option_map.keys()) + "=True"
     generators = "cmake"
     exports = ["LICENSE.md"]
-    cmake_patch_file = "cmake_msvc.patch"
-    exports_sources = [cmake_patch_file]
 
     def configure(self):
         if self.settings.os == "Windows":
@@ -85,12 +83,6 @@ class AssimpConan(ConanFile):
         source_url = "%s/archive/v%s.zip" % (self.homepage, self.version)
         tools.get(source_url)
         os.rename("assimp-%s" % (self.version,), self.source_subfolder)
-
-        if self.settings.os == "Windows":
-            # This small hack might be useful to guarantee proper /MT /MD linkage in MSVC
-            # if the packaged project doesn't have variables to set it properly
-            tools.patch(patch_file=self.cmake_patch_file)
-
         tools.replace_in_file("%s/CMakeLists.txt" % self.source_subfolder, "PROJECT( Assimp )", '''PROJECT( Assimp )
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()''')
@@ -116,16 +108,14 @@ conan_basic_setup()''')
         for option, definition in self.format_option_map.items():
             cmake.definitions[definition] = bool(getattr(self.options, option))
 
-        # X3D Importer is broken on VS2017 for 4.0.1. Fixed in HEAD, so remove this next version
-        if self.settings.compiler == "Visual Studio":
-            self.options.with_x3d = False
-
         cmake.configure(source_folder=self.source_subfolder)
         cmake.build()
         cmake.install()
 
     def package(self):
-        self.copy("*LICENSE*", dst="licenses", src=self.source_subfolder, keep_path=False)
+        # There are more than one LICENSE in source tree, choosing package and src license
+        self.copy("LICENSE.md", dst="licenses", keep_path=False)
+        self.copy("LICENSE", dst="licenses", src=self.source_subfolder, keep_path=False)
         include_folder = os.path.join(self.source_subfolder, "include")
         self.copy("*.h", dst="include", src=include_folder)
         self.copy("*.hpp", dst="include", src=include_folder)
