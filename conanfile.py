@@ -89,7 +89,7 @@ conan_basic_setup()''')
 
     def build(self):
         cmake = CMake(self)
-        cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared 
+        cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
         cmake.definitions["ASSIMP_DOUBLE_PRECISION"] = self.options.double_precision
         cmake.definitions["ASSIMP_NO_EXPORT"] = self.options.no_export
         cmake.definitions["ASSIMP_BUILD_ASSIMP_TOOLS"] = False
