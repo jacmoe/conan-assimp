@@ -1,0 +1,12 @@
+diff --git a/sources/code/Q3BSPZipArchive.cpp b/sources/code/Q3BSPZipArchive.cpp
+index 86c966d8..1c8b18ad 100644
+--- a/sources/code/Q3BSPZipArchive.cpp
++++ b/sources/code/Q3BSPZipArchive.cpp
+@@ -43,6 +43,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+ #include "Q3BSPZipArchive.h"
+ #include <cassert>
++#include <cstdlib>
+ #include <assimp/ai_assert.h>
+
+ namespace Assimp {

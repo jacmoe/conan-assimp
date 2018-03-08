@@ -74,6 +74,7 @@ class AssimpConan(ConanFile):
     default_options += "=True\n".join(format_option_map.keys()) + "=True"
     generators = "cmake"
     exports = ["LICENSE.md"]
+    exports_sources = ["patches/*"]
 
     def config_options(self):
         if self.settings.os == "Windows":
@@ -83,6 +84,10 @@ class AssimpConan(ConanFile):
         source_url = "%s/archive/v%s.zip" % (self.homepage, self.version)
         tools.get(source_url)
         os.rename("assimp-%s" % (self.version,), self.source_subfolder)
+
+        # when using clang and compiler.libcxx=libc++ build is failing due to <cstdlib> is not included
+        tools.patch(patch_file="patches/Q3BSPZipArchive.cpp.patch")
+
         tools.replace_in_file("%s/CMakeLists.txt" % self.source_subfolder, "PROJECT( Assimp )", '''PROJECT( Assimp )
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()''')
