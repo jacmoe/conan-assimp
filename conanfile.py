@@ -94,7 +94,7 @@ class AssimpConan(ConanFile):
         # clang and compiler.libcxx=libc++ build fails due to <cstdlib> is not included. Fixed in HEAD/master
         tools.patch(patch_file="patches/Q3BSPZipArchive.cpp.patch")
 
-        tools.replace_in_file("%s/CMakeLists.txt" % self.source_subfolder, "PROJECT( Assimp )", '''PROJECT( Assimp )
+        tools.replace_in_file("%s/CMakeLists.txt" % self.source_subfolder, "PROJECT( Assimp )", """PROJECT( Assimp )
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()""")
 
