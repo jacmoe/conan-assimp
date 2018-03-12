@@ -96,7 +96,7 @@ class AssimpConan(ConanFile):
 
         tools.replace_in_file("%s/CMakeLists.txt" % self.source_subfolder, "PROJECT( Assimp )", '''PROJECT( Assimp )
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()''')
+conan_basic_setup()""")
 
     def build(self):
         cmake = CMake(self)

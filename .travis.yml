@@ -1,6 +1,6 @@
 env:
   global:
-    #- CONAN_UPLOAD: "https://api.bintray.com/conan/jacmoe/Conan"
+    - CONAN_UPLOAD: "https://api.bintray.com/conan/jacmoe/Conan"
     - CONAN_REFERENCE: "Assimp/4.1.0"
     - CONAN_USERNAME: "jacmoe"
     - CONAN_CHANNEL: "stable"
