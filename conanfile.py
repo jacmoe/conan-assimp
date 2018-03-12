@@ -84,7 +84,7 @@ class AssimpConan(ConanFile):
     def requirements(self):
         if not self.options.internal_irrxml:
             # Using requirement from conan-center
-            self.requires("IrrXML/1.2@conan/stable")
+            self.requires.add("IrrXML/1.2@conan/stable")
 
     def source(self):
         source_url = "%s/archive/v%s.zip" % (self.homepage, self.version)
