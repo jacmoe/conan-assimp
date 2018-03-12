@@ -5,7 +5,7 @@ import os
 class AssimpConan(ConanFile):
     name = "Assimp"
     version = "4.1.0"
-    license = "MIT"
+    license = "BSD 3-Clause"
     homepage = "https://github.com/assimp/assimp"
     url = "https://github.com/jacmoe/conan-assimp"
     description = "Conan package for Assmip"
@@ -16,6 +16,7 @@ class AssimpConan(ConanFile):
         "shared": [True, False],
         "double_precision": [True, False],
         "no_export": [True, False],
+        "internal_irrxml": [True, False],
         "fPIC": [True, False],
     }
     # only fPIC enabled by default
@@ -70,7 +71,7 @@ class AssimpConan(ConanFile):
         "with_xgl": "ASSIMP_BUILD_XGL_IMPORTER",
     }
     options.update(dict.fromkeys(format_option_map, [True, False]))
-    # Format options enabled by default
+    # All format options enabled by default
     default_options += "=True\n".join(format_option_map.keys()) + "=True"
     generators = "cmake"
     exports = ["LICENSE.md"]
@@ -80,12 +81,17 @@ class AssimpConan(ConanFile):
         if self.settings.os == "Windows":
             del self.options.fPIC
 
+    def requirements(self):
+        if not self.options.internal_irrxml:
+            # Using requirement from conan-center
+            self.requires("IrrXML/1.2@conan/stable")
+
     def source(self):
         source_url = "%s/archive/v%s.zip" % (self.homepage, self.version)
         tools.get(source_url)
         os.rename("assimp-%s" % (self.version,), self.source_subfolder)
 
-        # when using clang and compiler.libcxx=libc++ build is failing due to <cstdlib> is not included
+        # clang and compiler.libcxx=libc++ build fails due to <cstdlib> is not included. Fixed in HEAD/master
         tools.patch(patch_file="patches/Q3BSPZipArchive.cpp.patch")
 
         tools.replace_in_file("%s/CMakeLists.txt" % self.source_subfolder, "PROJECT( Assimp )", '''PROJECT( Assimp )
@@ -94,6 +100,9 @@ conan_basic_setup()''')
 
     def build(self):
         cmake = CMake(self)
+        # Use conan-irrxml instead of irrxml included in assimp
+        cmake.definitions["SYSTEM_IRRXML"] = not self.options.internal_irrxml
+
         cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
         cmake.definitions["ASSIMP_DOUBLE_PRECISION"] = self.options.double_precision
         cmake.definitions["ASSIMP_NO_EXPORT"] = self.options.no_export
