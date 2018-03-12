@@ -5,7 +5,7 @@ import os
 class AssimpConan(ConanFile):
     name = "Assimp"
     version = "3.3.1"
-    license = "MIT"
+    license = "BSD 3-Clause"
     homepage = "https://github.com/assimp/assimp"
     url = "https://github.com/jacmoe/conan-assimp"
     description = "Conan package for Assmip"
