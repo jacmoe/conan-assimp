@@ -22,7 +22,7 @@ If you handle multiple dependencies in your project is better to add a *conanfil
     Assimp/4.1.0@jacmoe/testing
 
     [options]
-    Assimp:shared=true # false
+    Assimp:shared=True # False
 
     [generators]
     txt
